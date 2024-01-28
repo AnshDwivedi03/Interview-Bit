@@ -1,0 +1,50 @@
+Q. No.-> https://www.interviewbit.com/problems/maximum-sum-triplet/
+
+Ans->    
+    int Solution::solve(vector<int> &A) {
+    set<int>ans;
+    int sum=0;
+    int m=A.size();
+    vector<int>left(m);
+    vector<int>right(m,-1);
+    ans.insert(A[0]);
+    left[0]=-1;
+    // prefix..
+    for(int i=1;i<A.size();i++){
+    ans.insert(A[i]);
+       auto itr=ans.find(A[i]);
+         if(itr ==ans.begin()){
+             left[i]=-1;
+    }
+    else{
+          itr--;
+          left[i]=*itr;
+    }
+    }
+    // right subarray..
+           int fm=A.back();
+         for(int k=m-2;k>=0;k--){
+             if(A[k]>=fm){
+                 right[k]=-1;
+             }
+             else{
+                 right[k]= fm;
+             }
+             fm= max(fm,A[k]);
+             
+         }
+         // iterating total..
+         for(int z=0;z<A.size();z++){
+             if(left[z]==-1 || right[z]==-1){
+                 
+             }
+             else{
+             int result=left[z]+right[z]+A[z];
+             
+                 sum=max(sum,result);
+             }
+         }
+         
+  return sum;      
+    
+}
